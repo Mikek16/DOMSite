@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!---- orange: #ff603e
+            veridian: #006472
+            mauve: #da4e67
+            dark blue: #082a4e
+            teal: #08advc
+            green: #70bf47
+            olive: #94bf47
+            light orange: #ffbf47
+            red: #ff4e00
+            pink: # ff6d96-->
+    <title>Artist Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #;
+            color: #fff;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .artwork {
+            flex: 0 0 calc(50% - 20px); /* Each item takes up half the row, minus some margin */
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            position: relative;
+            transition: transform 0.5s ease-out;
+        }
+        .artwork img {
+            width: 100%;
+            height: auto;
+        }
+        .caption {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .bio{
+            text-align: left;
+            margin-top: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dominique Dorian</h1>
+    </div>
+    <div class="bio">
+        <p>I am dom</p>
+    </div>
+    
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var windowHeight = window.innerHeight;
+            var artworks = document.querySelectorAll('.artwork');
+            artworks.forEach(function(artwork) {
+                var artworkPosition = artwork.getBoundingClientRect().top;
+                var relativePosition = artworkPosition / windowHeight - 0.5;
+                if (relativePosition < -0.5) {
+                    relativePosition = -0.5;
+                } else if (relativePosition > 0.5) {
+                    relativePosition = 0.5;
+                }
+                artwork.style.transform = 'translateX(' + (relativePosition * 100) + '%)';
+            });
+        });
+    
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            var windowHeight = window.innerHeight;
+            var artworks = document.querySelectorAll('.artwork');
+            artworks.forEach(function(artwork) {
+                var artworkPosition = artwork.getBoundingClientRect().top + scrollPosition;
+                var relativePosition = (artworkPosition - scrollPosition) / windowHeight - 0.5;
+                if (relativePosition < -0.5) {
+                    relativePosition = -0.5;
+                } else if (relativePosition > 0.5) {
+                    relativePosition = 0.5;
+                }
+                artwork.style.transform = 'translateX(' + (relativePosition * 200) + '%)';
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>
