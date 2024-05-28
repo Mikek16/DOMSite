@@ -1,1 +1,192 @@
-dom.html 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Artist Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #93bf47b6;
+            color: #fff;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            z-index: 2; /* Ensure hamburger menu is above the slide-out menu */
+        }
+        .hamburger .bar {
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.4s ease-in-out;
+            position: absolute; 
+        }
+        .bar1 {
+            top: 0;
+        }
+        .bar2,
+        .bar3 {
+            top: 13.5px;
+        }
+        .bar3 {
+            right: 0;
+        }
+        .bar4 {
+            bottom: 0;
+        }
+        /* HAMBURGER 1 */
+        .header .hamburger .bar {
+            transition: all 0.4s ease-in-out;
+        }
+
+        .checkbox1:checked + .header .hamburger .bar1 {
+            transform: rotate(45deg);
+            transform-origin: 5%;
+            width: 41px;
+        }
+
+        .checkbox1:checked + .header .hamburger .bar2 {
+            transform: translateX(-40px);
+            background-color: transparent;
+        }
+
+        .checkbox1:checked + .header .hamburger .bar3 {
+            transform: translateX(40px);
+            background-color: transparent;
+        }
+
+        .checkbox1:checked + .header .hamburger .bar4 {
+            transform-origin: 5%;
+            transform: rotate(-45deg);
+            width: 41px;
+        }
+
+        .visuallyHidden {
+            position: absolute; 
+            overflow: hidden; 
+            clip: rect(0 0 0 0); 
+            height: 1px; 
+            width: 1px; 
+            margin: -1px; 
+            padding: 0; 
+            border: 0; 
+        }
+        h1 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .bio {
+            text-align: left;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        /* Pop-out Menu */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Start hidden off-screen */
+            width: 250px;
+            height: 100%;
+            background-color: #006472;
+            color: white;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: #004c5b;
+        }
+        #checkbox1:checked ~ .menu {
+            left: 0; /* Slide in the menu */
+        }
+        .header .hamburger {
+            transition: transform 0.3s ease;
+        }
+
+        #checkbox1:checked + .header .hamburger {
+            transform: translateX(250px); /* Adjust the value based on your preference */
+        }
+
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="checkbox1" class="checkbox1 visuallyHidden">
+    <div class="header">
+        <label for="checkbox1">
+            <div class="hamburger">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar3"></span>
+                <span class="bar bar4"></span>
+            </div>
+        </label>
+        <h1>Dominique Dorian</h1>
+        <div style="width: 30px;"></div> <!-- Placeholder to balance the space -->
+    </div>
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">Gallery</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="bio">
+        <p>I am Dom</p>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var windowHeight = window.innerHeight;
+            var artworks = document.querySelectorAll('.artwork');
+            artworks.forEach(function(artwork) {
+                var artworkPosition = artwork.getBoundingClientRect().top;
+                var relativePosition = artworkPosition / windowHeight - 0.5;
+                if (relativePosition < -0.5) {
+                    relativePosition = -0.5;
+                } else if (relativePosition > 0.5) {
+                    relativePosition = 0.5;
+                }
+                artwork.style.transform = 'translateX(' + (relativePosition * 100) + '%)';
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            var windowHeight = window.innerHeight;
+            var artworks = document.querySelectorAll('.artwork');
+            artworks.forEach(function(artwork) {
+                var artworkPosition = artwork.getBoundingClientRect().top + scrollPosition;
+                var relativePosition = (artworkPosition - scrollPosition) / windowHeight - 0.5;
+                if (relativePosition < -0.5) {
+                    relativePosition = -0.5;
+                } else if (relativePosition > 0.5) {
+                    relativePosition = 0.5;
+                }
+                artwork.style.transform = 'translateX(' + (relativePosition * 200) + '%)';
+            });
+        });
+    </script>
+</body>
+</html>
