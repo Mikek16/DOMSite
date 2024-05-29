@@ -130,7 +130,27 @@
         #checkbox1:checked + .header .hamburger {
             transform: translateX(250px); /* Adjust the value based on your preference */
         }
-
+        .gallery {
+            width: 100%; /* Full width */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevent images from wrapping */
+            padding: 20px 0; /* Add some padding for spacing */
+        }
+        .image {
+            position: relative; /* Add relative positioning */
+            display: inline-block;
+            width: 300px;
+            height: auto;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-style: solid;
+            border-width: 0px;
+            transition: transform 0.3s ease, border-width 0.3s ease; /* Smooth transition for image scaling and border width */
+        }
+        .image:hover {
+            transform: scale(1.15); /* Scale image on hover */
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -156,35 +176,32 @@
     <div class="bio">
         <p>I am Dom</p>
     </div>
+    <div class="gallery">
+        <img class="image" src="IMG_6326.jpg" alt="Image 1">
+        <img class="image" src="IMG_6327.jpg" alt="Image 2">
+        <img class="image" src="IMG_6334.jpg" alt="Image 3">
+        <!-- Add more images as needed -->
+    </div>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            var windowHeight = window.innerHeight;
-            var artworks = document.querySelectorAll('.artwork');
-            artworks.forEach(function(artwork) {
-                var artworkPosition = artwork.getBoundingClientRect().top;
-                var relativePosition = artworkPosition / windowHeight - 0.5;
-                if (relativePosition < -0.5) {
-                    relativePosition = -0.5;
-                } else if (relativePosition > 0.5) {
-                    relativePosition = 0.5;
-                }
-                artwork.style.transform = 'translateX(' + (relativePosition * 100) + '%)';
-            });
-        });
+        // Function to generate a random color with 50% opacity
+        function getRandomColorWithOpacity() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            const a = 0.35; // 35% opacity
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        }
 
-        window.addEventListener('scroll', function() {
-            var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-            var windowHeight = window.innerHeight;
-            var artworks = document.querySelectorAll('.artwork');
-            artworks.forEach(function(artwork) {
-                var artworkPosition = artwork.getBoundingClientRect().top + scrollPosition;
-                var relativePosition = (artworkPosition - scrollPosition) / windowHeight - 0.5;
-                if (relativePosition < -0.5) {
-                    relativePosition = -0.5;
-                } else if (relativePosition > 0.5) {
-                    relativePosition = 0.5;
-                }
-                artwork.style.transform = 'translateX(' + (relativePosition * 200) + '%)';
+        // Add event listeners to all images
+        document.querySelectorAll('.image').forEach(image => {
+            image.addEventListener('mouseover', function() {
+                this.style.borderColor = getRandomColorWithOpacity();
+                this.style.borderWidth = '10px';
+            });
+
+            image.addEventListener('mouseout', function() {
+                this.style.borderColor = 'transparent';
+                this.style.borderWidth = '0px';
             });
         });
     </script>
