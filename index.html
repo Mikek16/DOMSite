@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <!---- orange: #ff603e
+            veridian: #006472
+            mauve: #da4e67
+            dark blue: #082a4e
+            teal: #08advc
+            green: #70bf47
+            olive: #94bf47
+            light orange: #ffbf47
+            red: #ff4e00
+            pink: # ff6d96-->
     <title>Artist Portfolio</title>
     <style>
         body {
@@ -141,8 +151,10 @@
             display: inline-block;
             width: 300px;
             height: auto;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
             border-style: solid;
             border-width: 0px;
             transition: transform 0.3s ease, border-width 0.3s ease; /* Smooth transition for image scaling and border width */
@@ -150,7 +162,12 @@
         .image:hover {
             transform: scale(1.15); /* Scale image on hover */
             transition: transform 0.3s ease;
+            -webkit-box-shadow:0px 0px 33px 1px rgba(255,191,71,0.9);
+            -moz-box-shadow: 0px 0px 33px 1px rgba(255,191,71,0.9);
+            box-shadow: 0px 0px 33px 1px rgba(255,191,71,0.9);
         }
+        
+        
     </style>
 </head>
 <body>
@@ -183,27 +200,7 @@
         <!-- Add more images as needed -->
     </div>
     <script>
-        // Function to generate a random color with 50% opacity
-        function getRandomColorWithOpacity() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            const a = 0.35; // 35% opacity
-            return `rgba(${r}, ${g}, ${b}, ${a})`;
-        }
 
-        // Add event listeners to all images
-        document.querySelectorAll('.image').forEach(image => {
-            image.addEventListener('mouseover', function() {
-                this.style.borderColor = getRandomColorWithOpacity();
-                this.style.borderWidth = '10px';
-            });
-
-            image.addEventListener('mouseout', function() {
-                this.style.borderColor = 'transparent';
-                this.style.borderWidth = '0px';
-            });
-        });
     </script>
 </body>
 </html>
